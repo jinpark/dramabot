@@ -7,8 +7,6 @@ gem 'rails', '3.2.16'
 
 gem 'rails-api'
 
-gem 'sqlite3'
-
 gem 'rest-client'
 
 gem 'better_errors'
