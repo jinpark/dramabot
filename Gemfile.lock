@@ -47,6 +47,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.25.1)
     multi_json (1.8.4)
+    pg (0.17.1)
     polyglot (0.3.4)
     rack (1.4.5)
     rack-cache (1.2)
@@ -99,6 +100,7 @@ PLATFORMS
 DEPENDENCIES
   better_errors
   binding_of_caller
+  pg
   rails (= 3.2.16)
   rails-api
   rest-client
