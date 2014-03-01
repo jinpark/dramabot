@@ -61,6 +61,9 @@ class WebhooksController < ApplicationController
 
         end
 
+        if !reply
+            reply = "That is not a valid command"
+
         Slack::Post.post reply.to_s, "##{params['channel_name']}"
     end
 
