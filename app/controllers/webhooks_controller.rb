@@ -49,7 +49,7 @@ class WebhooksController < ApplicationController
             end
         end
 
-        if ['home'].include? first_word
+        if message.split.include? 'home'
             timenow = Time.now.in_time_zone("America/New_York")
             today_at_6 = Time.new(timenow.year, timenow.month, timenow.day, 18)
             if timenow < today_at_6
