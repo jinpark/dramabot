@@ -50,7 +50,7 @@ class WebhooksController < ApplicationController
     end
 
     if ['home'].include? first_word
-      timenow = Time.now
+      timenow = Time.now.in_time_zone("America/New_York")
       today_at_6 = Time.new(timenow.year, timenow.month, timenow.day, 18)
       if timenow < today_at_6
         time_until_6pm = view_context.distance_of_time_in_words(Time.new(timenow.year, timenow.month, timenow.day, 18) - Time.now)
