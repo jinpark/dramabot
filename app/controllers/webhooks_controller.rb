@@ -54,7 +54,7 @@ class WebhooksController < ApplicationController
             today_at_6 = Time.new(timenow.year, timenow.month, timenow.day, 18, 0, 0, "-05:00")
             if timenow < today_at_6
                 time_until_6pm = view_context.distance_of_time_in_words(today_at_6 - timenow)
-                reply = "It is #{time_until_6pm} till 6pm!"
+                reply = "Get back to work! It is #{time_until_6pm} till 6pm!"
             else
                 reply = "It's past 6! GO HOME!"
             end
