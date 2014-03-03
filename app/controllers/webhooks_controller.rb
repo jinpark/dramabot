@@ -50,8 +50,8 @@ class WebhooksController < ApplicationController
         end
 
         if /\bhome\b/.match(message)
-            timenow = Time.now.in_time_zone("America/New_York")
-            today_at_6 = Time.new(timenow.year, timenow.month, timenow.day, 18, 0, 0, "-05:00")
+            timenow = Time.now.in_time_zone("Eastern Time (US & Canada)")
+            today_at_6 = Time.new(timenow.year, timenow.month, timenow.day, 18, 0, 0, "+09:00")
             if timenow < today_at_6
                 time_until_6pm = view_context.distance_of_time_in_words(Time.new(timenow.year, timenow.month, timenow.day, 18) - Time.now)
                 reply = "It is #{time_until_6pm} till 6pm!"
