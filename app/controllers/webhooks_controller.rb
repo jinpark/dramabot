@@ -78,6 +78,11 @@ class WebhooksController < ApplicationController
 
         end
 
+        if /\blove\b/.match(message)
+            username = params['user_name']
+            reply = "#{username}: I :heart: you too!"
+        end
+
         if reply
             Slack::Post.post reply.to_s, "##{params['channel_name']}"
         end
