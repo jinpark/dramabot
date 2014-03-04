@@ -73,7 +73,8 @@ class WebhooksController < ApplicationController
             reply = "Restaurant: #{resto}
                      Time: #{time}
                      Description: #{description}
-                     Details: #{meal_detail_title}"
+                     Details: #{meal_detail_title}
+                     More info at: https://zerocater.com/m/IMRP"
 
         end
 
