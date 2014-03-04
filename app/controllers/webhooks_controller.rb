@@ -64,16 +64,21 @@ class WebhooksController < ApplicationController
         if /\blunch\b/.match(message)
 
             doc = Nokogiri::HTML(open('https://zerocater.com/m/IMRP'))
-            meal_item = doc.css('div.meal-item')
-            resto = meal_item.last.css('div.vendor').text.strip
-            time = meal_item.last.css('div.header-time').text.strip.delete("\n")
-            description = meal_item.last.css('div.vendor-description').text.strip
-            meal_detail_title = meal_item.last.css('div.detail-view-header > div.order-name').text.strip
+            meal_item = doc.css('div.meal-item').last
+            resto = meal_item.css('div.vendor').text.strip
+            time = meal_item.css('div.header-time').text.strip.delete("\n")
+            description = meal_item.css('div.vendor-description').text.strip
+            meal_detail_title = meal_item.css('div.detail-view-header > div.order-name').text.strip
+            detail_list = [] 
+            meal_item.css('ul.item-list > li span').each do |span|
+                detail_list << span.text.strip
+            end
 
             reply = "Restaurant: #{resto}
                      Time: #{time}
                      Description: #{description}
                      Details: #{meal_detail_title}
+                     More Details: #{detail_list.join(', ')}
                      More info at: https://zerocater.com/m/IMRP"
 
         end
@@ -95,10 +100,10 @@ class WebhooksController < ApplicationController
                             "As If", 
                             "Ask Me If I Care",
                             "Dumb Question Ask Another", 
-                            "Forget About It"," Get A Clue", "In Your Dreams", "Not, Not A Chance", 
+                            "Forget About It"," Get A Clue", "In Your Dreams", "No, Not A Chance", 
                             "Obviously", "Oh Please", "That's Ridiculous", "Well Maybe", "What Do You Think?", 
                             "Whatever", "Who Cares?", "Yeah And I'm The Pope", "Yah Right",  
-                            "You Wish", "You've Got To Be Kidding...", "Go f*ck yourself"];
+                            "You Wish", "You've Got To Be Kidding...x", "Go f*ck yourself"];
 
             reply = magic_answers.sample
         end 
