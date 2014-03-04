@@ -83,7 +83,7 @@ class WebhooksController < ApplicationController
             reply = "#{username}: I :heart: you too!"
         end
 
-        if message.split().first == '8ball'
+        if first_word == '8ball'
             magic_answers = ["Duh",
                             "Hazy, try again",
                             "No way",
