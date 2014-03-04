@@ -91,8 +91,15 @@ class WebhooksController < ApplicationController
                             "We'll see",
                             "Of course!",
                             "Yawn...",
-                            "Yep."];
-                            
+                            "Yep.",
+                            "As If", 
+                            "Ask Me If I Care",
+                            "Dumb Question Ask Another", 
+                            "Forget About It"," Get A Clue", "In Your Dreams", "Not, Not A Chance", 
+                            "Obviously", "Oh Please", "That's Ridiculous", "Well Maybe", "What Do You Think?", 
+                            "Whatever", "Who Cares?", "Yeah And I'm The Pope", "Yah Right",  
+                            "You Wish", "You've Got To Be Kidding…", "Go f*ck yourself"];
+
             reply = magic_answers.sample
         end 
 
