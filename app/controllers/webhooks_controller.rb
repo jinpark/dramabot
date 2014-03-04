@@ -34,13 +34,13 @@ class WebhooksController < ApplicationController
         message = params['text']
         first_word = params['text'].split[1]
 
-        if ['wea', 'weather'].include? first_word
+        if /\bweather\b/.match(message)
             weather_json = JSON.parse(RestClient.get('https://api.forecast.io/forecast/2c66d239a4fa4a935a08cec02401ac9d/40.7436644,-73.985778'))
             currently = weather_json['currently']
             reply = "It is #{currently['summary']} and the temperature is #{currently['temperature']}F"
         end
 
-        if ['bathroom', 'b'].include? first_word
+        if /\bbathroom\b/.match(message)
             occupied = JSON.parse(RestClient.get('http://dfoccupied.appspot.com/latest.json'))['occupied']
             if occupied
                 reply = "The bathroom is occupied. HOLD IT IN!"
@@ -58,6 +58,22 @@ class WebhooksController < ApplicationController
             else
                 reply = "It's past 6! GO HOME!"
             end
+
+        end
+
+        if /\blunch\b/.match(message)
+
+            doc = Nokogiri::HTML(open('https://zerocater.com/m/IMRP'))
+            meal_item = doc.css('div.meal-item')
+            resto = meal_item.last.css('div.vendor').text.strip
+            time = meal_item.last.css('div.header-time').text.strip.delete("\n")
+            description = meal_item.last.css('div.vendor-description').text.strip
+            meal_detail_title = meal_item.last.css('div.detail-view-header > div.order-name').text.strip
+
+            reply = "Restaurant: #{resto}
+                     Time: #{time}
+                     Description: #{description}
+                     Details: #{meal_detail_title}"
 
         end
 
