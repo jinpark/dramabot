@@ -1,26 +1,11 @@
 class WebhooksController < ApplicationController
-    # GET /webhooks
-    # GET /webhooks.json
-    def index
-        @webhooks = Webhook.all
-
-        render json: @webhooks
-    end
-
-    # GET /webhooks/1
-    # GET /webhooks/1.json
-    def show
-        @webhook = Webhook.find(params[:id])
-
-        render json: @webhook
-    end
 
     # POST /webhooks
     # POST /webhooks.json
     def create
         Slack::Post.configure(
             subdomain: 'dramafever',
-            token: '4Hz7p9h9mOAbuKMRk1gOH8Qg',
+            token: ENV['SLACK_TOKEN'],
             username: 'dramabot',
             icon_emoji: ':ghost:'
         )
@@ -35,7 +20,7 @@ class WebhooksController < ApplicationController
         first_word = params['text'].split[1]
 
         if /\bweather\b/.match(message)
-            weather_json = JSON.parse(RestClient.get('https://api.forecast.io/forecast/2c66d239a4fa4a935a08cec02401ac9d/40.7436644,-73.985778'))
+            weather_json = JSON.parse(RestClient.get("https://api.forecast.io/forecast/#{ENV['FORECAST_API_KEY']}/40.7436644,-73.985778"))
             currently = weather_json['currently']
             reply = "It is #{currently['summary']} and the temperature is #{currently['temperature']}F"
         end
@@ -114,24 +99,4 @@ class WebhooksController < ApplicationController
 
     end
 
-    # PATCH/PUT /webhooks/1
-    # PATCH/PUT /webhooks/1.json
-    def update
-        @webhook = Webhook.find(params[:id])
-
-        if @webhook.update_attributes(params[:webhook])
-            head :no_content
-        else
-            render json: @webhook.errors, status: :unprocessable_entity
-        end
-    end
-
-    # DELETE /webhooks/1
-    # DELETE /webhooks/1.json
-    def destroy
-        @webhook = Webhook.find(params[:id])
-        @webhook.destroy
-
-        head :no_content
-    end
 end

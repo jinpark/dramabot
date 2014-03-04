@@ -1,5 +1,5 @@
 Jinslackbot::Application.routes.draw do
-  resources :webhooks, except: [:new, :edit]
+  resources :webhooks, only: [:create]
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
