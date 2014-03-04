@@ -83,6 +83,19 @@ class WebhooksController < ApplicationController
             reply = "#{username}: I :heart: you too!"
         end
 
+        if message.split().first == '8ball'
+            magic_answers = ["Duh",
+                            "Hazy, try again",
+                            "No way",
+                            "Awoooga",
+                            "We'll see",
+                            "Of course!",
+                            "Yawn...",
+                            "Yep."];
+                            
+            reply = magic_answers.sample
+        end 
+
         if reply
             Slack::Post.post reply.to_s, "##{params['channel_name']}"
         end
